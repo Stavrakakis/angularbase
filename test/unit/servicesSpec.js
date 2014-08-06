@@ -1,14 +1,17 @@
-'use strict';
+(function() {
 
-/* jasmine specs for services go here */
+    'use strict';
+    /* jasmine specs for services go here */
 
-describe('service', function() {
-  beforeEach(module('winterflood.services'));
+    describe('service', function() {
+        beforeEach(module('winterflood.services'));
 
 
-  describe('version', function() {
-    it('should return current version', inject(function(version) {
-      expect(version).toEqual('0.1');
-    }));
-  });
-});
+        describe('version', function() {
+            it('should return current version', inject(function(version) {
+                expect(version)
+                    .toEqual('0.1');
+            }));
+        });
+    });
+})();

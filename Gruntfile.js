@@ -62,22 +62,13 @@ module.exports = function(grunt) {
             }
         },
         jshint: {
-            files: sourceFiles,
-            options: {
-                eqeqeq: true,
-                eqnull: true,
-            }
+            files: [sourceFiles, unitTestSpecs],
+            jshintrc: 'config/.jshintrc'
         },
         jsbeautifier: {
-            files: sourceFiles,
+            files: [sourceFiles, unitTestSpecs],
             options: {
-                js: {
-                    braceStyle: 'collapse',
-                    indentChart: ' ',
-                    indentSize: 4,
-                    evalCode: true,
-                    breakChainedMethods: true
-                }
+                config: 'config/.jsbeautifyrc'
             }
         },
         sass: {
@@ -105,11 +96,20 @@ module.exports = function(grunt) {
                     }
                 }
             },
-
+            test: {
+                options: {
+                    port: 9001,
+                    base: '.',
+                    hostname: 'localhost',
+                    middleware: function(connect) {
+                        return [lrSnippet, mountFolder(connect, '.')];
+                    }
+                }
+            }
         },
         open: {
             dev: {
-                path: 'http://localhost:<%= connect.server.options.port %>/_SpecRunner.html'
+                path: 'http://localhost:<%= connect.test.options.port %>/_SpecRunner.html'
             }
         },
         jasmine: {
@@ -155,8 +155,8 @@ module.exports = function(grunt) {
 
     // register tasks
     grunt.registerTask('prepare', ['clean', 'sass', 'jsbeautifier', 'jshint']);
-    grunt.registerTask('test', ['jasmine']);
+    grunt.registerTask('test', ['jasmine', 'connect:test', 'open']);
     grunt.registerTask('build', ['prepare', 'test', 'concat', 'uglify', 'copy', 'processhtml']);
-    grunt.registerTask('default', ['build', 'connect:server', 'open', 'watch']);
+    grunt.registerTask('default', ['build', 'connect:server', 'watch']);
 
 };
