@@ -3,7 +3,7 @@
     'use strict';
 
     var Dashboard = function() {
-        return 1;
+
     };
 
 

@@ -15,10 +15,14 @@ module.exports = function(grunt) {
     // build variables
 
     var sourceFiles = ['app/js/**/*.js'],
+        unitTestSpecs = ['test/unit/*Spec.js'],
         output = 'build/',
         scriptOutput = output + '/js/',
         outputScript = scriptOutput + 'app.js',
-        minifiedScript = scriptOutput + 'app.min.js';
+        minifiedScript = scriptOutput + 'app.min.js',
+        unitTestReqs = ['./app/lib/angular/angular.js',
+                        'app/lib/angular-route/angular-route.js',
+                        'app/lib/angular-mocks/angular-mocks.js'];
 
     // define modules and settings
 
@@ -84,7 +88,7 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            files: sourceFiles,
+            files: [sourceFiles, unitTestSpecs],
             tasks: ['build'],
             options: {
                 livereload: true
@@ -102,6 +106,21 @@ module.exports = function(grunt) {
                 }
             },
 
+        },
+        open: {
+            dev: {
+                path: 'http://localhost:<%= connect.server.options.port %>/_SpecRunner.html'
+            }
+        },
+        jasmine: {
+            dev: {
+                src: sourceFiles,
+                options: {
+                    specs: unitTestSpecs,
+                    vendor: unitTestReqs,
+                    keepRunner: true
+                }
+            }
         },
         processhtml: {
             options: {
@@ -135,7 +154,9 @@ module.exports = function(grunt) {
 
 
     // register tasks
-    grunt.registerTask('build', ['clean', 'sass', 'jsbeautifier', 'jshint', 'concat', 'uglify', 'copy:main', 'processhtml']);
-    grunt.registerTask('default', ['build', 'connect', 'watch']);
+    grunt.registerTask('prepare', ['clean', 'sass', 'jsbeautifier', 'jshint']);
+    grunt.registerTask('test', ['jasmine']);
+    grunt.registerTask('build', ['prepare', 'test', 'concat', 'uglify', 'copy', 'processhtml']);
+    grunt.registerTask('default', ['build', 'connect:server', 'open', 'watch']);
 
 };
