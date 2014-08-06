@@ -16,6 +16,7 @@ module.exports = function(grunt) {
 
     var sourceFiles = ['app/js/**/*.js'],
         unitTestSpecs = ['test/unit/*Spec.js'],
+        specRunner = 'test/_SpecRunner.html'
         output = 'build/',
         scriptOutput = output + '/js/',
         outputScript = scriptOutput + 'app.js',
@@ -40,18 +41,27 @@ module.exports = function(grunt) {
         },
         copy: {
             main: {
-                files: [
-                {
-                    cwd: 'app/',
-                    expand: true,
-                    src: ['partials/*.html'],
-                    dest: output
-                }, {
-                    cwd: 'app/',
-                    expand: true,
-                    src: ['lib/**/*'],
-                    dest: output
-                }]
+                files: 
+                [
+                    {
+                        cwd: 'app/',
+                        expand: true,
+                        src: ['partials/*.html'],
+                        dest: output
+                    }, 
+                    {
+                        cwd: 'app/',
+                        expand: true,
+                        src: ['lib/**/*'],
+                        dest: output
+                    },
+                    {
+                        cwd: 'app/style',
+                        expand: true,
+                        src: ['css/*.css'],
+                        dest: output
+                    }
+                ]
             },
         },
         uglify: {
@@ -79,7 +89,7 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            files: [sourceFiles, unitTestSpecs],
+            files: ['Gruntfile.js', sourceFiles, unitTestSpecs],
             tasks: ['build'],
             options: {
                 livereload: true
@@ -109,13 +119,14 @@ module.exports = function(grunt) {
         },
         open: {
             dev: {
-                path: 'http://localhost:<%= connect.test.options.port %>/_SpecRunner.html'
+                path: 'http://localhost:<%= connect.test.options.port %>/test/_SpecRunner.html'
             }
         },
         jasmine: {
             dev: {
                 src: sourceFiles,
                 options: {
+                    outfile: specRunner,
                     specs: unitTestSpecs,
                     vendor: unitTestReqs,
                     keepRunner: true
@@ -155,8 +166,8 @@ module.exports = function(grunt) {
 
     // register tasks
     grunt.registerTask('prepare', ['clean', 'sass', 'jsbeautifier', 'jshint']);
-    grunt.registerTask('test', ['jasmine', 'connect:test', 'open']);
+    grunt.registerTask('test', ['jasmine']);
     grunt.registerTask('build', ['prepare', 'test', 'concat', 'uglify', 'copy', 'processhtml']);
-    grunt.registerTask('default', ['build', 'connect:server', 'watch']);
+    grunt.registerTask('default', ['build', 'connect:server', 'connect:test', 'open', 'watch']);
 
 };
