@@ -4,11 +4,14 @@
 
     var Dashboard = function() {
 
+        var vm = this;
+
+        vm.message = 'Welcome to the Dashboard';
     };
 
 
     angular
-        .module('winterflood.controllers')
+        .module('app.controllers')
         .controller('Dashboard', Dashboard);
 
 })();

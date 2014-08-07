@@ -2,31 +2,32 @@
 
     'use strict';
 
-
     // Declare app level module which depends on filters, and services
-    angular.module('winterflood', [
+    angular.module('app', [
         'ngRoute',
-        'winterflood.filters',
-        'winterflood.services',
-        'winterflood.directives',
-        'winterflood.controllers'
+        'app.filters',
+        'app.services',
+        'app.directives',
+        'app.controllers'
     ])
         .config(['$routeProvider',
             function($routeProvider) {
                 $routeProvider.when('/dashboard', {
-                    templateUrl: 'partials/partial1.html',
-                    controller: 'Dashboard'
+                    templateUrl: 'partials/dashboard.html',
+                    controller: 'Dashboard',
+                    controllerAs: 'vm'
                 });
                 $routeProvider.when('/account', {
-                    templateUrl: 'partials/partial2.html',
-                    controller: 'Account'
+                    templateUrl: 'partials/account.html',
+                    controller: 'Account',
+                    controllerAs: 'vm'
                 });
                 $routeProvider.otherwise({
-                    redirectTo: '/dashboard'
+                    redirectTo: '/'
                 });
             }
         ]);
 
-    angular.module('winterflood.controllers', []);
+    angular.module('app.controllers', []);
 
 })();

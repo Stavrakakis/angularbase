@@ -5,7 +5,7 @@
     /* jasmine specs for controllers go here */
 
     describe('controllers', function() {
-        beforeEach(module('winterflood.controllers'));
+        beforeEach(module('app.controllers'));
 
 
         it('should ....', inject(function($controller) {

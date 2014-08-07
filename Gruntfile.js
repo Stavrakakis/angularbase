@@ -15,6 +15,7 @@ module.exports = function(grunt) {
     // build variables
 
     var sourceFiles = ['app/js/**/*.js'],
+        htmlFiles = ['app/*.html', 'app/partials/*.html'],
         unitTestSpecs = ['test/unit/*Spec.js'],
         specRunner = 'test/_SpecRunner.html'
         output = 'build/',
@@ -89,7 +90,7 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            files: ['Gruntfile.js', sourceFiles, unitTestSpecs],
+            files: ['Gruntfile.js', sourceFiles, htmlFiles, unitTestSpecs],
             tasks: ['build'],
             options: {
                 livereload: true
@@ -118,8 +119,11 @@ module.exports = function(grunt) {
             }
         },
         open: {
-            dev: {
+            test: {
                 path: 'http://localhost:<%= connect.test.options.port %>/test/_SpecRunner.html'
+            },
+            dev: {
+                path: 'http://localhost:<%= connect.server.options.port %>/'
             }
         },
         jasmine: {
@@ -170,6 +174,6 @@ module.exports = function(grunt) {
     grunt.registerTask('build', ['prepare', 'test', 'concat', 'uglify', 'copy', 'processhtml']);
 
     // default task
-    grunt.registerTask('default', ['build', 'connect:server', 'connect:test', 'open', 'watch']);
+    grunt.registerTask('default', ['build', 'connect:server', 'connect:test', 'open:test', 'open:dev', 'watch']);
 
 };

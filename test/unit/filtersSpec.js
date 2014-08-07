@@ -4,7 +4,7 @@
     /* jasmine specs for filters go here */
 
     describe('filter', function() {
-        beforeEach(module('winterflood.filters'));
+        beforeEach(module('app.filters'));
 
 
         describe('interpolate', function() {

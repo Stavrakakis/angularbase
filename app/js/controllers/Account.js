@@ -7,9 +7,8 @@
     };
 
 
-
     angular
-        .module('winterflood.controllers')
+        .module('app.controllers')
         .controller('Account', Account);
 
 })();

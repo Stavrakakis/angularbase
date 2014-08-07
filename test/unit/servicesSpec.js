@@ -4,7 +4,7 @@
     /* jasmine specs for services go here */
 
     describe('service', function() {
-        beforeEach(module('winterflood.services'));
+        beforeEach(module('app.services'));
 
 
         describe('version', function() {

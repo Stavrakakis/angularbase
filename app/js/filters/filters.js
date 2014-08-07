@@ -4,7 +4,7 @@
 
     /* Filters */
 
-    angular.module('winterflood.filters', [])
+    angular.module('app.filters', [])
         .filter('interpolate', ['version',
             function(version) {
                 return function(text) {
