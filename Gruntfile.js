@@ -168,6 +168,8 @@ module.exports = function(grunt) {
     grunt.registerTask('prepare', ['clean', 'sass', 'jsbeautifier', 'jshint']);
     grunt.registerTask('test', ['jasmine']);
     grunt.registerTask('build', ['prepare', 'test', 'concat', 'uglify', 'copy', 'processhtml']);
+
+    // default task
     grunt.registerTask('default', ['build', 'connect:server', 'connect:test', 'open', 'watch']);
 
 };

@@ -8,3 +8,4 @@ tmp
 .sass-cache/
 .grunt
 build/
+test/_SpecRunner.html
