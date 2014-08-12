@@ -5,26 +5,27 @@
     // Declare app level module which depends on filters, and services
     angular.module('app', [
         'ngRoute',
+        'ngCookies',
         'app.filters',
         'app.services',
         'app.directives',
-        'app.controllers'
+        'app.controllers',
+        'ui.router'
     ])
-        .config(['$routeProvider',
-            function($routeProvider) {
-                $routeProvider.when('/dashboard', {
-                    templateUrl: 'partials/dashboard.html',
-                    controller: 'Dashboard',
-                    controllerAs: 'vm'
-                });
-                $routeProvider.when('/account', {
-                    templateUrl: 'partials/account.html',
-                    controller: 'Account',
-                    controllerAs: 'vm'
-                });
-                $routeProvider.otherwise({
-                    redirectTo: '/'
-                });
+        .config(['$stateProvider',
+            function($stateProvider) {
+
+                $stateProvider
+                    .state('public', {
+                        template: 'partials/dashboard.html',
+                        controller: 'Dashboard',
+                        controllerAs: 'vm',
+                        data: {
+                            access: 'public'
+                        }
+                    });
+
+
             }
         ]);
 
