@@ -11,7 +11,7 @@
         };
 
         var accessLevels = {
-            public: roles.anon |
+            public: roles.public |
                 roles.user |
                 roles.admin,
             anon: roles.public,

@@ -35,7 +35,7 @@
                     templateUrl: 'partials/login.html',
                     controller: 'Login',
                     controllerAs: 'vm',
-                    access: roles.accessLevels.anon
+                    access: roles.accessLevels.public
                 });
 
                 $routeProvider.when('/admin', {
