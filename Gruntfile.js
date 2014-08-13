@@ -17,7 +17,6 @@ module.exports = function(grunt) {
     var sourceFiles = [    
             'app/js/providers/RoleProvider.js',
             'app/js/app.js',
-            'app/js/factories/RoleFactory.js',
             'app/js/factories/ConfigurationSettings.js',
             'app/js/controllers/Dashboard.js',
             'app/js/controllers/Account.js',
@@ -34,6 +33,7 @@ module.exports = function(grunt) {
         minifiedScript = scriptOutput + 'app.min.js',
         unitTestReqs = ['./app/lib/angular/angular.js',
                         'app/lib/angular-route/angular-route.js',
+                        'app/lib/angular-cookies/angular-cookies.js',
                         'app/lib/angular-mocks/angular-mocks.js'];
 
     // define modules and settings

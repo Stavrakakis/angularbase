@@ -9,23 +9,23 @@
 
     /**
      * AuthService provides login, logout and role authorization functionality
-     * @param {object roleFactory - An injectable roleConfiguration factory
+     * @param {object} roleProvider - An injectable roleConfiguration factory
      * @returns {object} - The AuthService singleton
      */
-    var Authorization = function(roleFactory, $http, authServer, $cookieStore) {
+    var Authorization = function(roleProvider, $http, authServer, $cookieStore) {
 
         var service = this;
         var defaultUser = {
             username: '',
-            role: roleFactory.roles.public
+            role: roleProvider.roles.public
         };
 
         var currentUser = $cookieStore.get('user') || defaultUser;
 
         // Public members
 
-        service.accessLevels = roleFactory.accessLevels;
-        service.roles = roleFactory.roles;
+        service.accessLevels = roleProvider.accessLevels;
+        service.roles = roleProvider.roles;
 
 
         /**
@@ -98,6 +98,6 @@
 
 
     angular.module('app.services')
-        .service('Authorization', ['RoleFactory', '$http', 'authServer', '$cookieStore', Authorization]);
+        .service('Authorization', ['role', '$http', 'authServer', '$cookieStore', Authorization]);
 
 })();

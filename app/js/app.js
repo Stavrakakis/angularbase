@@ -6,9 +6,9 @@
     angular.module('app.controllers', []);
     angular.module('app.factories', []);
     angular.module('app.settings', []);
-    angular.module('app.services', []);
+    angular.module('app.services', ['ngCookies', 'app.providers', 'app.settings']);
 
-    // Declare app level module which depends on filters, and services
+
     angular.module('app', [
         'ngRoute',
         'ngCookies',
@@ -66,9 +66,6 @@
                             $rootScope.error = null;
                             $location.path('/login');
                         }
-
-
-
                     }
 
                 });
