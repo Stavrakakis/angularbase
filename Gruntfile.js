@@ -14,9 +14,19 @@ module.exports = function(grunt) {
 
     // build variables
 
-    var sourceFiles = ['app/js/**/*.js'],
+    var sourceFiles = [    
+            'app/js/providers/RoleProvider.js',
+            'app/js/app.js',
+            'app/js/factories/RoleFactory.js',
+            'app/js/factories/ConfigurationSettings.js',
+            'app/js/controllers/Dashboard.js',
+            'app/js/controllers/Account.js',
+            'app/js/controllers/Login.js',
+            'app/js/controllers/Admin.js',
+            'app/js/services/Authorization.js',
+        ],
         htmlFiles = ['app/*.html', 'app/partials/*.html'],
-        unitTestSpecs = ['test/unit/*Spec.js'],
+        unitTestSpecs = ['test/unit/**/*Spec.js'],
         specRunner = 'test/_SpecRunner.html'
         output = 'build/',
         scriptOutput = output + '/js/',
